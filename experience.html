@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experience</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --accent-color: #60a5fa;
+            --dark-bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --border-color: #334155;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .text-gradient {
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .bg-card {
+            background-color: var(--card-bg);
+        }
+
+        .navbar {
+            backdrop-filter: blur(10px);
+            background-color: rgba(15, 23, 42, 0.95);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-link {
+            position: relative;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-link.active {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .experience-hero {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.2), rgba(59, 130, 246, 0.2));
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .experience-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%233b82f6" fill-opacity="0.03" points="0,1000 1000,0 1000,1000"/></svg>');
+            background-size: cover;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(180deg, var(--secondary-color), var(--accent-color));
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+            animation: timeline-glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes timeline-glow {
+            0% {
+                box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+            }
+
+            100% {
+                box-shadow: 0 0 20px rgba(96, 165, 250, 0.8);
+            }
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-content {
+            padding: 25px 30px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-8px);
+            border-color: var(--secondary-color);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: var(--card-bg);
+            border: 4px solid var(--secondary-color);
+            top: 50%;
+            border-radius: 50%;
+            z-index: 1;
+            transform: translateY(-50%);
+            animation: pulse 2s infinite;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            left: -10px;
+            background-color: var(--card-bg);
+            border: 4px solid var(--accent-color);
+            top: 50%;
+            border-radius: 50%;
+            z-index: 1;
+            transform: translateY(-50%);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+            }
+        }
+
+        .timeline-date {
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .company {
+            color: var(--accent-color);
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .responsibilities {
+            margin-top: 15px;
+        }
+
+        .responsibilities li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .responsibilities li:hover {
+            transform: translateX(5px);
+        }
+
+        .responsibilities li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+        }
+
+        .tech-badge {
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 10px rgba(59, 130, 246, 0.3);
+        }
+
+        .certification-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            transition: all 0.4s ease;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .certification-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--secondary-color);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .cert-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cert-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% {
+                transform: translate(0, 0px);
+            }
+
+            50% {
+                transform: translate(0, 15px);
+            }
+
+            100% {
+                transform: translate(0, -0px);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content::after,
+            .timeline-item:nth-child(even) .timeline-content::after {
+                left: 21px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3" href="index.html">
+                <span class="text-gradient">FJ</span><span class="text-light">.dev</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item mx-2">
+                        <a class="nav-link fw-medium" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link fw-medium" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link fw-medium" href="skills.html">Skills</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link fw-medium active" href="experience.html">Experience</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link fw-medium" href="projects.html">Projects</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link fw-medium" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Experience Hero Section -->
+    <section class="experience-hero pt-5">
+        <div class="container position-relative">
+            <div class="row text-center">
+                <div class="col-12" data-aos="fade-up">
+                    <h1 class="display-4 fw-bold mb-4">Work <span class="text-gradient">Experience</span></h1>
+                    <p class="lead text-light">My professional journey and career milestones</p>
+                </div>
+            </div>
+            <div class="floating position-absolute bottom-0 end-0 me-5 d-none d-lg-block">
+                <i class="fas fa-briefcase text-gradient" style="font-size: 8rem; opacity: 0.1;"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Timeline -->
+    <section class="py-5">
+        <div class="container py-5">
+            <div class="timeline">
+                <!-- Experience 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">July 2025 – October 2025</div>
+                        <h3 class="fw-bold text-light">.NET Programmer</h3>
+                        <p class="company">Wise Agile Solutions – Nairobi, Kenya</p>
+                        <p class="text-light">Designed, developed, and managed Windows applications to support and
+                            optimize client business processes.</p>
+
+                        <div class="responsibilities">
+                            <h6 class="text-light fw-bold">Key Responsibilities:</h6>
+                            <ul class="text-light">
+                                <li>Maintained and enhanced existing .NET applications by implementing new features</li>
+                                <li>Collaborated with cross-functional teams to gather requirements and deliver
+                                    solutions</li>
+                                <li>Conducted debugging, troubleshooting, and performance optimization</li>
+                                <li>Participated in Agile development practices including daily stand-ups</li>
+                            </ul>
+                        </div>
+
+                        <div class="mt-3">
+                            <span class="tech-badge">.NET</span>
+                            <span class="tech-badge">C#</span>
+                            <span class="tech-badge">Windows Apps</span>
+                            <span class="tech-badge">Agile</span>
+                            <span class="tech-badge">SQL Server</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">April 2025 – July 2025</div>
+                        <h3 class="fw-bold text-light">Attachment Student</h3>
+                        <p class="company">Nairobi City County, Innovation and Digital Economy Department – Nairobi,
+                            Kenya</p>
+                        <p class="text-light">Assisted in the development and implementation of digital solutions for
+                            public service delivery.</p>
+
+                        <div class="responsibilities">
+                            <h6 class="text-light fw-bold">Key Responsibilities:</h6>
+                            <ul class="text-light">
+                                <li>Supported ICT infrastructure maintenance and troubleshooting</li>
+                                <li>Participated in data entry and digital records management</li>
+                                <li>Collaborated in rollout of innovation programs</li>
+                                <li>Analyzed user feedback on existing digital platforms</li>
+                            </ul>
+                        </div>
+
+                        <div class="mt-3">
+                            <span class="tech-badge">Digital Solutions</span>
+                            <span class="tech-badge">ICT</span>
+                            <span class="tech-badge">Public Service</span>
+                            <span class="tech-badge">Innovation</span>
+                            <span class="tech-badge">Data Management</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience 3 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">January 2024 – December 2024</div>
+                        <h3 class="fw-bold text-light">Urban Graphics Designer</h3>
+                        <p class="company">Urban Graphix – Nairobi, Kenya</p>
+                        <p class="text-light">Designed engaging visual content for print and digital media campaigns.
+                        </p>
+
+                        <div class="responsibilities">
+                            <h6 class="text-light fw-bold">Key Responsibilities:</h6>
+                            <ul class="text-light">
+                                <li>Created posters, banners, and social media graphics</li>
+                                <li>Collaborated with creative and marketing teams</li>
+                                <li>Developed branding and visual identity for projects</li>
+                                <li>Participated in brainstorming sessions and client feedback</li>
+                            </ul>
+                        </div>
+
+                        <div class="mt-3">
+                            <span class="tech-badge">Adobe Suite</span>
+                            <span class="tech-badge">Graphic Design</span>
+                            <span class="tech-badge">Branding</span>
+                            <span class="tech-badge">UI/UX</span>
+                            <span class="tech-badge">Visual Identity</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="py-5 bg-card">
+        <div class="container py-5">
+            <div class="row text-center mb-5">
+                <div class="col-12" data-aos="fade-up">
+                    <h2 class="display-5 fw-bold mb-3">Education & <span class="text-gradient">Certifications</span>
+                    </h2>
+                    <p class="text-light">Academic background and professional certifications</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-4" data-aos="fade-right">
+                    <div class="certification-card p-4 h-100">
+                        <i class="fas fa-graduation-cap cert-icon"></i>
+                        <h4 class="fw-bold text-light">Diploma in Information Technology</h4>
+                        <p class="company">KCA University</p>
+                        <p class="text-light">2023 – 2025</p>
+                        <p class="text-light mt-3">Comprehensive IT education covering software development, networking,
+                            database management, and systems analysis.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4" data-aos="fade-left">
+                    <div class="certification-card p-4 h-100">
+                        <i class="fas fa-certificate cert-icon"></i>
+                        <h4 class="fw-bold text-light">Certificate in Computer Proficiency</h4>
+                        <p class="company">Fleming Institute</p>
+                        <p class="text-light">2023</p>
+                        <p class="text-light mt-3">Fundamental computer skills including Microsoft Office Suite, basic
+                            programming concepts, and IT fundamentals.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KITI Certifications -->
+            <div class="row mt-4">
+                <div class="col-12 text-center mb-4" data-aos="fade-up">
+                    <h3 class="fw-bold text-light">KITI Certifications <span class="text-gradient">(University of
+                            Nairobi)</span></h3>
+                    <p class="text-light">Advanced certifications in emerging technologies</p>
+                </div>
+
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="certification-card p-4 h-100 text-center">
+                        <i class="fas fa-shield-alt cert-icon"></i>
+                        <h4 class="fw-bold text-light">Cybersecurity</h4>
+                        <p class="company">KITI - University of Nairobi</p>
+                        <p class="text-light">Completed 2024</p>
+                        <p class="text-light mt-3">Comprehensive cybersecurity training covering network security,
+                            ethical hacking, threat analysis, and security protocols.</p>
+                        <span class="cert-badge">Security Focused</span>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="certification-card p-4 h-100 text-center">
+                        <i class="fas fa-robot cert-icon"></i>
+                        <h4 class="fw-bold text-light">Artificial Intelligence</h4>
+                        <p class="company">KITI - University of Nairobi</p>
+                        <p class="text-light">Completed 2024</p>
+                        <p class="text-light mt-3">Advanced AI concepts including machine learning, neural networks,
+                            natural language processing, and AI ethics.</p>
+                        <span class="cert-badge">AI Specialist</span>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="certification-card p-4 h-100 text-center">
+                        <i class="fas fa-link cert-icon"></i>
+                        <h4 class="fw-bold text-light">Blockchain Technology</h4>
+                        <p class="company">KITI - University of Nairobi</p>
+                        <p class="text-light">Completed 2024</p>
+                        <p class="text-light mt-3">In-depth blockchain training covering cryptocurrency, smart
+                            contracts, decentralized applications, and blockchain security.</p>
+                        <span class="cert-badge">Blockchain Expert</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0 text-light">© 2023 Francis Joel. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="d-flex justify-content-md-end gap-3 mt-3 mt-md-0">
+                        <a href="https://github.com/francisjoel45" class="link-highlight text-light"
+                            target="_blank">GitHub</a>
+                        <a href="https://linkedin.com/in/francisjoel" class="link-highlight text-light"
+                            target="_blank">LinkedIn</a>
+                        <a href="https://twitter.com/francisjoel" class="link-highlight text-light"
+                            target="_blank">Twitter</a>
+                        <a href="mailto:francis@example.com" class="link-highlight text-light">Email</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Timeline animation on scroll
+        function animateTimeline() {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+
+            timelineItems.forEach(item => {
+                const itemTop = item.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+
+                if (itemTop < windowHeight * 0.85) {
+                    item.classList.add('visible');
+                }
+            });
+        }
+
+        // Initial call
+        animateTimeline();
+
+        // Listen for scroll events
+        window.addEventListener('scroll', animateTimeline);
+    </script>
+</body>
+
+</html>

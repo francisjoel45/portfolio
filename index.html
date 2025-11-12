@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            /* Professional dark blue */
+            --secondary-color: #3b82f6;
+            /* Medium blue */
+            --accent-color: #60a5fa;
+            /* Light blue accent */
+            --dark-bg: #0f172a;
+            /* Dark background */
+            --card-bg: #1e293b;
+            /* Card background */
+            --text-primary: #f8fafc;
+            /* Primary text */
+            --text-secondary: #cbd5e1;
+            /* Secondary text */
+            --border-color: #334155;
+            /* Border color */
+            --link-color: #60a5fa;
+            /* Link color */
+            --link-hover: #93c5fd;
+            /* Link hover color */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .text-gradient {
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .bg-card {
+            background-color: var(--card-bg);
+        }
+
+        .navbar {
+            backdrop-filter: blur(10px);
+            background-color: rgba(15, 23, 42, 0.95);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-link {
+            position: relative;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-link.active {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .btn-primary-custom {
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+            border: none;
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary-custom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary-custom:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-outline-light-custom {
+            border: 2px solid var(--text-secondary);
+            color: var(--text-secondary);
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-light-custom:hover {
+            border-color: var(--accent-color);
+            color: var(--text-primary);
+            background: rgba(96, 165, 250, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% {
+                transform: translate(0, 0px);
+            }
+
+            50% {
+                transform: translate(0, 15px);
+            }
+
+            100% {
+                transform: translate(0, -0px);
+            }
+        }
+
+        .classic-frame {
+            position: relative;
+            width: 350px;
+            height: 400px;
+            margin: 0 auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+        }
+
+        .classic-frame::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, var(--secondary-color), var(--accent-color), var(--secondary-color));
+            z-index: -1;
+            border-radius: 15px;
+            animation: borderRotate 8s linear infinite;
+        }
+
+        .classic-frame::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            z-index: -1;
+        }
+
+        @keyframes borderRotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.5s ease;
+            filter: grayscale(0.2) sepia(0.1);
+        }
+
+        .classic-frame:hover .profile-img {
+            transform: scale(1.05);
+        }
+
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid var(--secondary-color);
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent
+            }
+
+            50% {
+                border-color: var(--secondary-color);
+            }
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .service-card {
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary-color);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .stats-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+        }
+
+        .social-link:hover {
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+            color: white;
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+            border-radius: 3px;
+        }
+
+        .link-highlight {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .link-highlight:hover {
+            color: var(--link-hover);
+            text-decoration: underline;
+        }
+
+        .footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+        }
+
+        a:not(.nav-link, .btn, .social-link) {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:not(.nav-link, .btn, .social-link):hover {
+            color: var(--link-hover);
+            text-decoration: underline;
+        }
+
+        .card-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--link-color);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .card-link:hover {
+            color: var(--link-hover);
+            transform: translateX(5px);
+        }
+
+        .page-link {
+            color: var(--link-color);
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .page-link:hover {
+            background-color: rgba(96, 165, 250, 0.1);
+            color: var(--link-hover);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3" href="index.html">
+                <span class="text-gradient">FJ</span><span class="text-light">.dev</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item mx-2">
+                        <a class="nav-link fw-medium active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link fw-medium" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link fw-medium" href="skills.html">Skills</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link fw-medium" href="experience.html">Experience</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link fw-medium" href="projects.html">Projects</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link fw-medium" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-vh-100 d-flex align-items-center position-relative overflow-hidden pt-5">
+        <div id="particles-container"></div>
+        <div class="container position-relative z-1">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <h3 class="fs-5 mb-3 text-light">Hello, I'm</h3>
+                    <h1 class="display-4 fw-bold mb-4">Francis Joel</h1>
+                    <h2 class="typewriter fs-1 mb-4 text-gradient">Software Developer</h2>
+                    <p class="lead mb-4 text-light">I build scalable, efficient, and user-focused applications that
+                        solve real-world problems. My objective is to apply my knowledge and skills in solving society
+                        problems.</p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="projects.html" class="btn btn-primary-custom btn-lg px-4 py-2 fw-medium">View My
+                            Work</a>
+                        <a href="contact.html" class="btn btn-outline-light-custom btn-lg px-4 py-2 fw-medium">Contact
+                            Me</a>
+                    </div>
+                    <div class="mt-5 d-flex gap-4">
+                        <a href="https://github.com/francisjoel45" class="social-link" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/francisjoel" class="social-link" target="_blank">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://twitter.com/francisjoel" class="social-link" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="mailto:francis@example.com" class="social-link">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center mt-5 mt-lg-0" data-aos="fade-left">
+                    <div class="floating position-relative">
+                        <div class="classic-frame">
+                            <img src="greencard.JPG" alt="Francis Joel" class="profile-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-5">
+        <div class="container py-5">
+            <div class="row text-center mb-5">
+                <div class="col-12" data-aos="fade-up">
+                    <h2 class="display-5 fw-bold mb-3 section-title">What I Do</h2>
+                    <p class="fs-5 text-light">Transforming ideas into digital solutions</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card service-card bg-card border-0 shadow-sm h-100 text-center p-4">
+                        <div class="card-body">
+                            <i class="fas fa-code text-gradient fs-1 mb-3"></i>
+                            <h5 class="card-title fw-bold text-light">Web Development</h5>
+                            <p class="card-text text-light">Building responsive and scalable web applications using
+                                modern technologies like React, Vue, and Node.js.</p>
+                            <a href="projects.html#web" class="card-link">View Projects <i
+                                    class="fas fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card service-card bg-card border-0 shadow-sm h-100 text-center p-4">
+                        <div class="card-body">
+                            <i class="fas fa-mobile-alt text-gradient fs-1 mb-3"></i>
+                            <h5 class="card-title fw-bold text-light">Mobile Apps</h5>
+                            <p class="card-text text-light">Creating native Android applications with focus on user
+                                experience using Kotlin and Java.</p>
+                            <a href="projects.html#mobile" class="card-link">View Projects <i
+                                    class="fas fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card service-card bg-card border-0 shadow-sm h-100 text-center p-4">
+                        <div class="card-body">
+                            <i class="fas fa-database text-gradient fs-1 mb-3"></i>
+                            <h5 class="card-title fw-bold text-light">Database Solutions</h5>
+                            <p class="card-text text-light">Designing efficient database systems and data management
+                                solutions with SQL and NoSQL databases.</p>
+                            <a href="projects.html#database" class="card-link">View Projects <i
+                                    class="fas fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <section class="py-5 stats-section text-white">
+        <div class="container py-5">
+            <div class="row text-center">
+                <div class="col-md-3" data-aos="fade-up">
+                    <h3 class="display-4 fw-bold">10+</h3>
+                    <p>Projects Completed</p>
+                    <a href="projects.html" class="page-link">See all projects</a>
+                </div>
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="display-4 fw-bold">3+</h3>
+                    <p>Years Experience</p>
+                    <a href="experience.html" class="page-link">View experience</a>
+                </div>
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="display-4 fw-bold">8+</h3>
+                    <p>Technologies</p>
+                    <a href="skills.html" class="page-link">See skills</a>
+                </div>
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="display-4 fw-bold">100%</h3>
+                    <p>Client Satisfaction</p>
+                    <a href="contact.html" class="page-link">Get in touch</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0 text-light">© 2023 Francis Joel. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="d-flex justify-content-md-end gap-3 mt-3 mt-md-0">
+                        <a href="https://github.com/francisjoel45" class="link-highlight" target="_blank">GitHub</a>
+                        <a href="https://linkedin.com/in/francisjoel" class="link-highlight"
+                            target="_blank">LinkedIn</a>
+                        <a href="https://twitter.com/francisjoel" class="link-highlight" target="_blank">Twitter</a>
+                        <a href="mailto:francisjoel045@gmail.com" class="link-highlight">Email</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            const particleCount = 25;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+
+                const size = Math.random() * 5 + 3;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+
+                container.appendChild(particle);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            createParticles();
+
+            // Add floating animation to particles
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes float {
+                    0% { transform: translate(0, 0) rotate(0deg); }
+                    33% { transform: translate(${Math.random() * 30 - 15}px, ${Math.random() * 30 - 15}px) rotate(120deg); }
+                    66% { transform: translate(${Math.random() * 30 - 15}px, ${Math.random() * 30 - 15}px) rotate(240deg); }
+                    100% { transform: translate(0, 0) rotate(360deg); }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+
+</html>
